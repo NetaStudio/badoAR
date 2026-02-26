@@ -6,9 +6,45 @@
     <title>バドＡＲ</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
+        /* 1. 画面の余白をなくし、スクロールを防ぐ */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; 
+            background-color: #f0f0f0; /* 背景色（お好みで変更してください） */
+        }
+
+        /* 2. モデルビューアを画面いっぱいに広げる（縦伸び対策） */
         model-viewer {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
+            display: block; /* 隙間ができるのを防ぐ */
+        }
+
+        /* 3. AR撮影ボタンをスマホで押しやすいサイズ・デザインにする */
+        #ar-button {
+            position: absolute;
+            bottom: 30px; /* 下からの位置 */
+            left: 50%;
+            transform: translateX(-50%); /* 中央寄せ */
+            padding: 15px 30px; /* ボタン内の余白（大きさ） */
+            font-size: 18px; /* 文字サイズ */
+            font-weight: bold;
+            color: white;
+            background-color: #007bff; /* ボタンの色 */
+            border: none;
+            border-radius: 30px; /* 角を丸くする */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 影をつけて浮き上がらせる */
+            cursor: pointer;
+        }
+
+        /* ボタンを押したときの見た目 */
+        #ar-button:active {
+            background-color: #0056b3;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transform: translateX(-50%) translateY(2px);
         }
     </style>
 </head>
@@ -18,9 +54,10 @@
     ios-src="bado.usdz"
     alt="Astronaut model"
     ar
-    ar-modes="webxr"
+    ar-modes="webxr scene-viewer quick-look"
     camera-controls
-    autoplay animation-name="idle"
+    autoplay 
+    animation-name="idle"
     shadow-intensity="1"
 >
     <button slot="ar-button" id="ar-button">
@@ -29,4 +66,3 @@
 </model-viewer>
 </body>
 </html>
-
